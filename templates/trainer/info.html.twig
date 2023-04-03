@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trainer: {{ trainer.firstName ~ ' ' ~ trainer.lastName }} {% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <section class="section-p1">
+        <div class="info">
+            <h1> Trainer: {{ trainer.firstName ~ ' ' ~ trainer.lastName }} </h1>
+            <a href="{{ path('trainer_home') }}"><button class="btn btn-primary">Back</button></a>
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ trainer.id }}</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ trainer.firstName }}</td>
+                </tr>
+                <tr>
+                    <th>Last Name</th>
+                    <td>{{ trainer.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>{{ trainer.age }}</td>
+                </tr>
+                <tr>
+                    <th>Pokemon</th>
+                    <td>
+                        {% if trainer.pokemon is empty %}
+                            None
+                        {% else %}
+                            {% for pokemon in trainer.pokemon %}
+                                {{ pokemon.name}}
+                            {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

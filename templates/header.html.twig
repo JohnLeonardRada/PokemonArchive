@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section id="header" class="section-p1">
+        <a href="#"><img src={{ asset('images/logo.png') }} alt="" /></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="{{ path('base_index') }}">Home</a></li>
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

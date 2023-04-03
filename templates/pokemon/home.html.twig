@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pokemon Database{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <section class="section-p1">
+        <div class="info">
+            <h1>Pokemon Database</h1>
+    
+            {% for type, messages in app.flashes() %}
+                {% if type == 'new' %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% elseif type == 'edit' %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% elseif type == 'delete' %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            <a href="{{ path('pokemon_new') }}"><button class="btn btn-primary"> Add Pokemon</button></a>
+        </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>DESCRIPTION</th>
+                    <th>REGION</th>
+                    <th>ELEMENT</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pokemon in pokemons %}
+                <tr>
+                    <td>{{ pokemon.id }}</td>
+                    <td>{{ pokemon.name }}</td>
+                    <td>{{ pokemon.description }}</td>
+                    <td>{{ pokemon.region }}</td>
+                    <td> {% if pokemon.elements is empty %} 
+                            None
+                         {% else %}
+                                {% for element in pokemon.elements %}
+                                    {{ element.name }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('pokemon_info', {'id': pokemon.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{ path('pokemon_edit', {'id': pokemon.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this item?')) { document.getElementById('delete-form-{{ pokemon.id }}').submit(); }"><i class="fa-solid fa-trash"></i></a>
+
+                        <form id="delete-form-{{ pokemon.id }}" method="post" action="{{ path('pokemon_delete', {'id': pokemon.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pokemon.id) }}">
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">NO RECORDS FOUND</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

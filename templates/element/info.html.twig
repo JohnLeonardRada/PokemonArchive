@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Element: {{ element.name }} {% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <section class="section-p1">
+        <div class="info">
+            <h1> Element: {{ element.name }} </h1>
+            <a href="{{ path('element_home') }}"><button class="btn btn-primary">Back</button></a>
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ element.id }}</td>
+                </tr>
+                <tr>
+                    <th>Element</th>
+                    <td>{{ element.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ element.description }}</td>
+                </tr>
+                <tr>
+                    <th>Strong Against</th>
+                    <td> 
+                        {% if element.strongAgainst is empty %} 
+                            None
+                         {% else %}
+                                {% for element in element.strongAgainst %}
+                                    {{ element.name }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Weak Against</th>
+                    <td> 
+                        {% if element.weakAgainst is empty %} 
+                            None
+                         {% else %}
+                                {% for element in element.weakAgainst %}
+                                    {{ element.name }}
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+{% endblock %}

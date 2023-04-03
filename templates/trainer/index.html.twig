@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trainer Database{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+    
+    <section class="section-p1">
+        <div class="info">
+            <h1>Trainer Database</h1>
+
+            {% for type, messages in app.flashes() %}
+                {% if type == 'new' %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% elseif type == 'edit' %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% elseif type == 'delete' %}
+                    {% for message in messages %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+            <a href="{{ path('trainer_new') }}"><button class="btn btn-primary"> Add Trainer</button></a>
+        </div>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>AGE</th>
+                    <th>NO. OF POKEMON</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for trainer in trainers %}
+                <tr>
+                    <td>{{ trainer.id }}</td>
+                    <td>{{ trainer.firstName }}</td>
+                    <td>{{ trainer.lastName }}</td>
+                    <td>{{ trainer.age }}</td>
+                    <td>{{ trainer.pokemon|length }}</td>
+                    <td>
+                        <a href="{{ path('trainer_info', {'id': trainer.id}) }}"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{ path('trainer_edit', {'id': trainer.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="#" onclick="event.preventDefault(); if (confirm('Are you sure you want to delete this item?')) { document.getElementById('delete-form-{{ trainer.id }}').submit(); }"><i class="fa-solid fa-trash"></i></a>
+
+                        <form id="delete-form-{{ trainer.id }}" method="post" action="{{ path('trainer_delete', {'id': trainer.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trainer.id) }}">
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">NO RECORDS FOUND</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

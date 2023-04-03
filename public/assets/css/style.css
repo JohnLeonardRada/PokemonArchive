@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Roboto:wght@100&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato";
+  font-weight: 900;
+}
+
+.section-p1 {
+  padding: 30px 400px;
+}
+
+/* templates/pokemon/index.html.twig */
+#hero {
+  background-image: url("../../images/background.png");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 97vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#hero h1 {
+  color: #ffffff;
+  font-size: 120px;
+  font-weight: lighter;
+  margin-bottom: 30px;
+}
+
+#hero button {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 900;
+  background-color: transparent;
+  border-color: #ececec;
+  border-radius: 10px;
+  padding: 10px 30px 10px 30px;
+  margin: 0 50px;
+  transition: 0.3s ease;
+}
+
+#hero button:hover {
+  font-size: 40px;
+  font-weight: 900;
+  background-color: #ececec;
+  color: #000000;
+  padding: 10px 30px 10px 30px;
+  transition: 0.3s ease;
+}
+
+/* templates/header.html.twig */
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+}
+
+#header a img {
+  width: 100%;
+  height: 55px;
+}
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navbar li {
+  list-style: none;
+  padding: 0 30px;
+  position: relative;
+}
+
+#navbar li a {
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#navbar li a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #e8aa47;
+  position: absolute;
+  bottom: -4px;
+  left: 30px;
+}
+
+#navbar li a:hover {
+  color: #e8aa47;
+}
+
+/* templates/pokemon/home.html.twig */
+/* templates/trainer/index.html.twig */
+/* templates/element/index.html.twig */
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+i {
+    padding-right: 6px;
+}
+
+/* templates/pokemon/new.html.twig */
+/* templates/trainer/new.html.twig */
+/* templates/element/new.html.twig */
+.add-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-header .btn { 
+    float: right;
+}

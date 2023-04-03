@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pokemon: {{ pokemon.name }} {% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <section class="section-p1">
+        <div class="info">
+            <h1> Pokemon: {{ pokemon.name }} </h1>
+            <a href="{{ path('pokemon_home') }}"><button class="btn btn-primary">Back</button></a>
+        </div>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ pokemon.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ pokemon.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ pokemon.description }}</td>
+                </tr>
+                <tr>
+                    <th>Region</th>
+                    <td>{{ pokemon.region }}</td>
+                </tr>
+                <tr>
+                    <th>Element</th>
+                    <td>
+                        {% if pokemon.elements is empty %}
+                            None
+                        {% else %}
+                            {% for element in pokemon.elements %}
+                                {{ element.name}}
+                            {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+{% endblock %}
