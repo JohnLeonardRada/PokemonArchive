@@ -23,7 +23,6 @@ use Psr\Log\LoggerTrait;
 
 class PokemonType extends AbstractType
 {
-
     private $logger;
     private $entityManager;
     private $pokemonRepository;
@@ -63,7 +62,7 @@ class PokemonType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 // MAKES THE LIST IN ASCENDING ORDER
-                'query_builder' => function (EntityRepository $er){
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('e')
                         ->orderBy('e.name', 'ASC');
                 },
@@ -93,8 +92,7 @@ class PokemonType extends AbstractType
         $pokemon = $event->getData();
         $form = $event->getForm();
 
-        if($pokemon instanceof Pokemon && $pokemon->getId() !== null)
-        {
+        if($pokemon instanceof Pokemon && $pokemon->getId() !== null) {
             $form->add('name', TextType::class, [
                 'label' => 'Name:',
                 'attr' => ['readonly' => true],
@@ -118,7 +116,7 @@ class PokemonType extends AbstractType
             return;
         }
 
-        if($form->isSubmitted() && !$form->isValid()){
+        if($form->isSubmitted() && !$form->isValid()) {
             $event->stopPropagation();
             return;
         }
@@ -128,9 +126,9 @@ class PokemonType extends AbstractType
     {
         $element = $event->getData();
         $form = $event->getForm();
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             if (!$element->getCreatedAt()) {
                 $element->setCreatedAt(new \DateTime());
             }

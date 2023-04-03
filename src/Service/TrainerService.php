@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\Trainer;
 use App\Repository\TrainerRepository;
 
-class TrainerService 
+class TrainerService
 {
     private $trainerRepository;
 

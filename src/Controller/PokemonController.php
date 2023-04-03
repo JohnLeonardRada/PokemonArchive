@@ -14,7 +14,6 @@ use App\Repository\PokemonRepository;
 
 class PokemonController extends AbstractController
 {
-
     private $pokemonService;
 
     public function __construct(PokemonService $pokemonService)
@@ -51,8 +50,7 @@ class PokemonController extends AbstractController
         $form = $this->createForm(PokemonType::class, $pokemon);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->pokemonService->add($pokemon);
 
             $this->addFlash(
@@ -82,13 +80,12 @@ class PokemonController extends AbstractController
     /**
      * @Route("/pokemon/edit/{id}", name="pokemon_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Pokemon $pokemon): Response 
+    public function edit(Request $request, Pokemon $pokemon): Response
     {
         $form = $this->createForm(PokemonType::class, $pokemon);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->pokemonService->add($pokemon);
 
             $this->addFlash(
@@ -108,7 +105,7 @@ class PokemonController extends AbstractController
     /**
      * @Route("/pokemon/delete/{id}", name="pokemon_delete", methods={"POST"})
      */
-    public function delete(Request $request, Pokemon $pokemon): Response 
+    public function delete(Request $request, Pokemon $pokemon): Response
     {
         if ($this->isCsrfTokenValid('delete'.$pokemon->getId(), $request->request->get('_token'))) {
             $this->pokemonService->remove($pokemon);

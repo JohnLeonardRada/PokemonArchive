@@ -17,7 +17,6 @@ use App\Repository\ElementRepository;
  */
 class ElementController extends AbstractController
 {
-
     private $elementService;
 
     public function __construct(ElementService $elementService)
@@ -46,8 +45,7 @@ class ElementController extends AbstractController
         $form = $this->createForm(ElementType::class, $element);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->elementService->add($element);
 
             $this->addFlash(
@@ -77,13 +75,12 @@ class ElementController extends AbstractController
     /**
      * @Route("/edit/{id}", name="element_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Element $element, ElementRepository $elementRepository): Response 
+    public function edit(Request $request, Element $element, ElementRepository $elementRepository): Response
     {
         $form = $this->createForm(ElementType::class, $element);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->elementService->add($element);
 
             $this->addFlash(
@@ -103,7 +100,7 @@ class ElementController extends AbstractController
     /**
      * @Route("/delete/{id}", name="element_delete", methods={"POST"})
      */
-    public function delete(Request $request, Element $element, ElementRepository $elementRepository): Response 
+    public function delete(Request $request, Element $element, ElementRepository $elementRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$element->getId(), $request->request->get('_token'))) {
             $this->elementService->remove($element);

@@ -20,7 +20,6 @@ use Psr\Log\LoggerTrait;
 
 class ElementType extends AbstractType
 {
-
     private $logger;
     private $entityManager;
     private $elementRepository;
@@ -131,15 +130,15 @@ class ElementType extends AbstractType
             $event->stopPropagation();
             return;
         }
-    }    
+    }
 
     public function onPostSubmit(FormEvent $event)
     {
         $element = $event->getData();
         $form = $event->getForm();
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             if (!$element->getCreatedAt()) {
                 $element->setCreatedAt(new \DateTime());
             }

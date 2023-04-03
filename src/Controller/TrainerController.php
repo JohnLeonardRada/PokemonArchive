@@ -17,7 +17,6 @@ use App\Repository\TrainerRepository;
  */
 class TrainerController extends AbstractController
 {
-
     private $trainerService;
 
     public function __construct(TrainerService $trainerService)
@@ -46,8 +45,7 @@ class TrainerController extends AbstractController
         $form = $this->createForm(TrainerType::class, $trainer);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->trainerService->add($trainer);
 
             $this->addFlash(
@@ -77,13 +75,12 @@ class TrainerController extends AbstractController
     /**
      * @Route("/edit/{id}", name="trainer_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Trainer $trainer): Response 
+    public function edit(Request $request, Trainer $trainer): Response
     {
         $form = $this->createForm(TrainerType::class, $trainer);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->trainerService->add($trainer);
 
             $this->addFlash(
@@ -103,7 +100,7 @@ class TrainerController extends AbstractController
     /**
      * @Route("/delete/{id}", name="trainer_delete", methods={"POST"})
      */
-    public function delete(Request $request, Trainer $trainer, TrainerRepository $trainerRepository): Response 
+    public function delete(Request $request, Trainer $trainer, TrainerRepository $trainerRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trainer->getId(), $request->request->get('_token'))) {
             $this->trainerService->remove($trainer);

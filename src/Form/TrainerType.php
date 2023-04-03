@@ -21,7 +21,6 @@ use Psr\Log\LoggerTrait;
 
 class TrainerType extends AbstractType
 {
-
     private $logger;
     private $entityManager;
     private $trainerRepository;
@@ -110,7 +109,7 @@ class TrainerType extends AbstractType
 
             $form->get('pokemon')->setData($defaultPokemon);
         }
-        
+
     }
 
     public function onPreSubmit(Formevent $event): void
@@ -126,15 +125,13 @@ class TrainerType extends AbstractType
             'lastName' => $lastName,
         ]);
 
-        if($existingTrainer)
-        {
+        if($existingTrainer) {
             $form->addError(new FormError('This trainer already exists'));
             $event->stopPropagation();
             return;
         }
 
-        if($form->isSubmitted() && !$form->isValid())
-        {
+        if($form->isSubmitted() && !$form->isValid()) {
             $event->stopPropagation();
             return;
         }
@@ -146,8 +143,7 @@ class TrainerType extends AbstractType
         $form = $event->getForm();
         $age = $trainer->getAge();
 
-        if($age < 5 || $age > 100)
-        {
+        if($age < 5 || $age > 100) {
             $form->addError(new FormError('Age must be between 8 and 100'));
         }
     }
@@ -163,7 +159,7 @@ class TrainerType extends AbstractType
                 $trainer->setCreatedAt(new \DateTime());
             }
             $trainer->setUpdatedAt(new \DateTime());
-    
+
             $this->entityManager->persist($trainer);
             $this->entityManager->flush();
         }
